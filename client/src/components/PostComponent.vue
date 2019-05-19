@@ -43,8 +43,7 @@
     </div>
   </div>
   <div v-for="post in posts">
-     <p v-show="(post.deadline<getToday())"> 만료되었습니다!</p>
-    <p>{{`${post.deadline}/${getToday()}`}}</p>
+    <p>{{`${post.title}/${getToday()}`}}</p>
   </div>
 </div>
 </template>
@@ -107,18 +106,14 @@ export default {
       return today;
     },
 
-    getDay(dealine){
-       var day;
-       if(deadline !== 100){
-         day = deadline[deadline.length-1]*1 + deadline[dealine.length-2]*10
-       } 
-       return day
-    }
-    //   } else{
-    //     day = 9999
-    //   }
-    //   return day
+    // getDay(dealine){
+    //    var day;
+    //    if(deadline !== 100){
+    //      day = deadline[deadline.length-1]*1 + deadline[dealine.length-2]*10
+    //    } 
+    //    return day
     // }
+    
   }
 };
 </script>

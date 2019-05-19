@@ -1,0 +1,4 @@
+/client
+node_modules
+
+###깃으로 버젼관리가 필요없는 파일or Directory 설정 

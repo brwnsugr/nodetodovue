@@ -49,7 +49,7 @@ router.patch('/:id', async (req, res)=>{
 });
 
 async function loadPostsCollection(){
-    const client = await mongodb.MongoClient.connect(('mongodb://localhost')
+    const client = await mongodb.MongoClient.connect(('mongodb+srv://test:<test1234>@todolee-nswhz.mongodb.net/test?retryWrites=true')
         , {useNewUrlParser: true});
     return client.db('vue_express').collection('posts');
 } 

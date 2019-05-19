@@ -23,6 +23,9 @@
   <hr>
   <p class="error" v-if="error">{{error}}</p>
   <div class="post-container">
+    <div v-for="post in posts">
+    <p class="text" v-if="getDay(post.deadline)<getToday()">{{post.title}} 마감일 초과!</p>
+  </div>
     <div class="post"
       v-for="post in posts"
       v-bind:item="post"
@@ -42,9 +45,7 @@
       <button v-on:click="post.completed*=(-1)">완료체크</button>
     </div>
   </div>
-  <div v-for="post in posts">
-    <p>{{`${post.title}/${getToday()}`}}</p>
-  </div>
+  
 </div>
 </template>
 
@@ -99,20 +100,23 @@ export default {
     },
 
     getToday(){
+      var now;
       var date = new Date();
-      var today = date.getDate()
-      console.log(today)
-      console.log(typeof(today))
-      return today;
+      now = date.getTime()
+      return now;
     },
 
-    // getDay(dealine){
-    //    var day;
-    //    if(deadline !== 100){
-    //      day = deadline[deadline.length-1]*1 + deadline[dealine.length-2]*10
-    //    } 
-    //    return day
-    // }
+    getDay(deadline){
+        var elapsed;
+        if(deadline!=100){
+          elapsed = Date.parse(deadline)
+          return elapsed
+        }
+        // if(deadline !== 100){
+        //   day = deadline[9]*1 + deadline[8]*10
+        // } 
+        // return day
+     }
     
   }
 };

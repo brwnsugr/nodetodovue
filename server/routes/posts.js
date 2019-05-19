@@ -38,14 +38,15 @@ router.patch('/:id', async (req, res)=>{
     const posts = await loadPostsCollection();
     var title = req.body.title;
     var content = req.body.content;
+    var ObjectId = require('mongodb').ObjectID;
     var doc ={
         "$set":{
-            title: title,
-            content: content
+            "title": title,
+            "content": content
         }
     };
-    posts.updateOne({"_id":req.params.id},doc);
-    console.log(["updated"], doc);
+    posts.updateOne({"_id":ObjectId(req.params.id)},doc);
+    console.log(doc);
 });
 
 async function loadPostsCollection(){

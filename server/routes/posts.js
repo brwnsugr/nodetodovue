@@ -21,14 +21,12 @@ router.post('/', async (req, res)=>{
         updatedAt: new Date(),
     });
     res.status(201).send();
-    console.log(req.body.title);
 });
 //Delete post
 router.delete('/:id', async (req, res)=>{
     const posts = await loadPostsCollection();
     await posts.deleteOne({_id: new mongodb.ObjectId(req.params.id)});
     res.status(200).send();
-    console.log(posts.deleteOne({_id: new mongodb.ObjectId(req.params.id)}))
 });
 //Update post
 router.patch('/:id', async (req, res)=>{
@@ -47,7 +45,6 @@ router.patch('/:id', async (req, res)=>{
         }
     };
     posts.updateOne({"_id":ObjectId(req.params.id)},doc);
-    console.log(doc);
 });
 async function loadPostsCollection(){
     const client = await mongodb.MongoClient.connect(('mongodb+srv://test:test1234@todolee-nswhz.mongodb.net/test?retryWrites=true')

@@ -23,7 +23,11 @@
   <hr>
   <p class="error" v-if="error">{{error}}</p>
   <div class="post-container">
-    <div v-for="post in posts">
+    <div 
+    v-for="post in posts"
+    v-bind:item="post"
+    v-bind:key="post._id"
+    >
     <p class="text3" v-if="getDay(post.deadline)<getToday()">{{post.title}} => 마감일 초과!</p>
   </div>
     <div class="post"
@@ -86,7 +90,6 @@ export default {
       await PostService.updatePost(this.id,{title: this.title, content: this.content, priority: this.priority, deadline: this.deadline});
       this.isEdit*=(-1)
       this.posts = await PostService.getPosts();
-      console.log([this.id, this.title, this.content, this])
     },
     //when click the edit button for setting the new value 
     editTodo(id, title, content, priority, deadline){
@@ -95,7 +98,6 @@ export default {
       this.priority = priority
       this.deadline = deadline
       this.isEdit*=(-1)
-      console.log([this.id, this.title, this.content, this])
     },
     //get Time today(now)
     getToday(){

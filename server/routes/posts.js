@@ -8,8 +8,6 @@ router.get('/', async (req,res)=>{
     const posts = await loadPostsCollection();
     res.send(await posts.find({}).toArray()); // return all the things from posts
 });
-
-
 //Add posts
 router.post('/', async (req, res)=>{
     const posts = await loadPostsCollection();
@@ -32,23 +30,25 @@ router.delete('/:id', async (req, res)=>{
     res.status(200).send();
     console.log(posts.deleteOne({_id: new mongodb.ObjectId(req.params.id)}))
 });
-
 //Update post
 router.patch('/:id', async (req, res)=>{
     const posts = await loadPostsCollection();
     var title = req.body.title;
     var content = req.body.content;
+    var priority = req.body.priority;
+    var deadline = req.body.deadline;
     var ObjectId = require('mongodb').ObjectID;
     var doc ={
         "$set":{
             "title": title,
-            "content": content
+            "content": content,
+            "priority": priority,
+            "deadline": deadline
         }
     };
     posts.updateOne({"_id":ObjectId(req.params.id)},doc);
     console.log(doc);
 });
-
 async function loadPostsCollection(){
     const client = await mongodb.MongoClient.connect(('mongodb+srv://test:test1234@todolee-nswhz.mongodb.net/test?retryWrites=true')
         , {useNewUrlParser: true});

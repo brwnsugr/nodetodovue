@@ -3,7 +3,7 @@ import axios from 'axios';
 const url = 'api/posts/';
 
 class PostService{
-    //Get Posts, static 붙이면 instance 화 할필요없다. 
+    //Get Posts, static 붙이면 instance화 할 필요없이 다이렉트로 method 이용 가능 
     static getPosts(){
         return new Promise(async(resolve,reject)=>{
             try{

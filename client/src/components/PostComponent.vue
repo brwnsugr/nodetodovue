@@ -17,7 +17,7 @@
     <input type="radio" v-model="completed" value=1 placeholder="우선순위">완료
     <input type="radio" v-model="completed" value=-1 placeholder="우선순위">미완료 
     <button v-if="this.isEdit==-1" type="submit">제출</button>
-    <button v-else type="button" v-on:click.prevent="updatePost()">수정</button>
+    <button v-else type="button" v-on:click.prevent="updatePost()">수정(변경 사항 위 폼에 입력 후 클릭 후 새로고침하면 적용!)</button>
     </form>
   </div>
   <hr>
@@ -40,7 +40,7 @@
       <p class="text2">내용: {{post.content}}</p>
       <p class="text2" v-if="post.deadline !== ''">마감일: {{post.deadline}}</p>
       <button v-on:click="deletePost(post._id)">삭제</button>
-      <button v-on:click="editTodo(post._id, post.title, post.content, post.priroity, post.deadline)">편집</button>
+      <button v-on:click="editTodo(post._id, post.title, post.content, post.priroity, post.deadline)">편집모드</button>
       <button v-on:click="post.completed*=(-1)">완료체크</button>
     </div>
   </div>

@@ -3,13 +3,13 @@
   <h1>To Do list!</h1>
   <!---CREATE POST HERE--->
   <div>
-    <form v-on:submit.prevent="createPost">
+    <form v-on:submit.prevent="createPost"> <!----v-on을 사용하여 Vue Instance에 'createPost'Method를 호출하는 이벤트 리스너 첨부 --->
     <label >입력: 제목/내용/마감일(선택)</label>
     <input type="text" v-model="title" placeholder="Create a title">
     <input type="text" v-model="content" placeholder="Create a Contents">
     <input type="date" v-model="deadline" placeholder="Set Deadline">
     <br>
-    <p>우선순위(선택)</p>
+    <p>우선순위(선택)</p><!---v-model은 양식에 대한 입력과 앱 상태를 양방향으로 바인딩함-->
     <input type="radio" v-model="priority" value="우선순위: 보통" placeholder="우선순위">보통
     <input type="radio" v-model="priority" value="우선순위: 긴급" placeholder="우선순위">긴급
     <input type="radio" v-model="priority" value="우선순위: 낮음" placeholder="우선순위">낮음<br>
@@ -22,7 +22,7 @@
   </div>
   <hr>
   <p class="error" v-if="error">{{error}}</p>
-  <div class="post-container">
+  <div class="post-container"> <!---v-bind: 이 요소의 item을 Vue instance의 post속성으로 최신 상태를 유지, v-for에는 v-bind가 필수 --->
     <div 
     v-for="post in posts"
     v-bind:item="post"
@@ -67,21 +67,21 @@ export default {
     }
   },
   async created(){
-    try{
-      this.posts = await PostService.getPosts(); //PostService 클래스에서 method를 static으로 선언했기 때문에 바로 getPost()를 쓸 수 있음 
+    try{ //PostService 클래스에서 method를 static으로 선언했기 때문에 바로 getPost()를 쓸 수 있음 
+      this.posts = await PostService.getPosts(); //getPosts 매쏘드를 실행 후 return 값을 posts에 넣어줌 
     } catch(err){
       this.error = err.message;
     }
   },
   methods:{
     //Post Request
-    async createPost(){
+    async createPost(){ //여기서의 this는 Vue Component를 뜻함, 즉 input값에 바로 입력한 value들이 되겠다.
       await PostService.insertPost({title: this.title, content: this.content, priority: this.priority, deadline: this.deadline, completed: this.completed });//어차피 인자는 text 키값의 벨류
-      this.posts = await PostService.getPosts();
+      this.posts = await PostService.getPosts(); // insertPost 가 성공하면, Vue Component의 posts 배열에 getPosts()한 값의 리턴 값을 돌려줌
     },
     //Delete Request
     async deletePost(id){
-      await PostService.deletePost(id);  ''
+      await PostService.deletePost(id);  
       this.posts = await PostService.getPosts();
     },
 
@@ -102,7 +102,7 @@ export default {
     //get Time today(now)
     getToday(){
       var now;
-      var date = new Date();
+      var date = new Date(); //date라는 instance생성
       now = date.getTime()
       return now;
     },
@@ -110,11 +110,10 @@ export default {
     getDay(deadline){
       var elapsed;
       if(deadline!=100){
-        elapsed = Date.parse(deadline)
+        elapsed = Date.parse(deadline) // deadline을 parsing해서 시간화 시킴 
         return elapsed
       }
      }
-    
   }
 };
 </script>

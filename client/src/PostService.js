@@ -12,7 +12,7 @@ class PostService{
                 resolve(
                     data.map(post=>({ // 만약 성공했으면, .map method를 통해 post array 반환
                         ...post,
-                        createdAt: new Date(post.createdAt)
+                        createdAt: new Date(post.createdAt) //
                     }))
                 );
             } catch(err){
@@ -25,11 +25,11 @@ class PostService{
         return axios.post(url, todo);
     }
     //Delete todo
-    static deletePost(id){
+    static deletePost(id){ // Client단에서 받은 delete를 axios패키지를 통해 서버로 요청 보냄
         return axios.delete(`${url}${id}`)
     }
     //Update Todo
-    static updatePost(id, todo){
+    static updatePost(id, todo){ // Client단에서 받은 update를 axios패키지를 통해 서버로 요청 보냄
         return axios.patch(`${url}${id}`, todo)
     }
 }

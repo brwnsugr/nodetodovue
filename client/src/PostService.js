@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'; // 먼저 
 
 const url = 'api/posts/';
 
@@ -7,10 +7,10 @@ class PostService{
     static getPosts(){
         return new Promise(async(resolve,reject)=>{
             try{
-                const res = await axios.get(url);
-                const data = res.data;
+                const res = await axios.get(url); // axios 패키지를 통해 http통신을 할 수 있음, 서버에 요청 보낼 수 있음
+                const data = res.data; // 서버로부터 얻은 res.data를 data변수에 넣음
                 resolve(
-                    data.map(post=>({
+                    data.map(post=>({ // 만약 성공했으면, .map method를 통해 post array 반환
                         ...post,
                         createdAt: new Date(post.createdAt)
                     }))
@@ -21,7 +21,7 @@ class PostService{
         })
     }
     //Create todo
-    static insertPost(todo){
+    static insertPost(todo){ // Client단에서 받은 todo를 axios패키지를 통해 서버로 요청 보냄
         return axios.post(url, todo);
     }
     //Delete todo
